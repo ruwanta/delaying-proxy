@@ -42,9 +42,7 @@ public class Application {
         DelayingProxy delayingProxy = new DelayingProxy();
         delayingProxy.initialize(proxyConfig);
 
-        Configurator configurator = new ProxyConfiguratorImpl();
-
-        ProxyConfigureService proxyConfigureService = new ProxyConfigureService(configurator);
+        ProxyConfigureService proxyConfigureService = new ProxyConfigureService(delayingProxy.getProxyConfigurator());
         MicroservicesRunner microservicesRunner = new MicroservicesRunner();
         microservicesRunner.deploy(new HelloService(), proxyConfigureService)
                 .start();

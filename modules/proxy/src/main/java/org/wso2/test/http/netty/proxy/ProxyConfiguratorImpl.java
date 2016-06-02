@@ -18,22 +18,55 @@
 
 package org.wso2.test.http.netty.proxy;
 
+import org.wso2.test.http.netty.proxy.config.ProxyConfig;
+import org.wso2.test.http.netty.proxy.config.ProxyConfigEntry;
 import org.wso2.test.ruwana.proxy.delay.api.Configurator;
 
 public class ProxyConfiguratorImpl implements Configurator {
 
+    private ProxyConfig proxyConfig;
+
+    public ProxyConfiguratorImpl(ProxyConfig proxyConfig) {
+        this.proxyConfig = proxyConfig;
+    }
+
     @Override
     public void setMinDelay(String id, String match, int value) {
-        System.out.println("Setting min delay "+value);
+        System.out.println("Setting min delay " + value);
+        ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
+        if (proxyConfigEntry != null) {
+            proxyConfigEntry.setMinDelay(value);
+            proxyConfigEntry.notifyObservers();
+        }
     }
 
     @Override
     public void setMaxDelay(String id, String match, int value) {
-
+        ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
+        if (proxyConfigEntry != null) {
+            proxyConfigEntry.setMaxDelay(value);
+            proxyConfigEntry.notifyObservers();
+        }
     }
 
     @Override
     public void setAverageDelay(String id, String match, int value) {
+        ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
+        if (proxyConfigEntry != null) {
+            proxyConfigEntry.setAverageDelay(value);
+            proxyConfigEntry.notifyObservers();
+        }
+    }
 
+    private ProxyConfigEntry findProxyConfigEntry(String id) {
+        if (id == null || id.length() <= 0) {
+            return null;
+        }
+        for (ProxyConfigEntry proxyConfigEntry : proxyConfig.getProxyConfigs()) {
+            if (id.equals(""+proxyConfigEntry.getId())) {
+                return proxyConfigEntry;
+            }
+        }
+        return null;
     }
 }

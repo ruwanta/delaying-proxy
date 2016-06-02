@@ -54,7 +54,7 @@ public final class DelayingProxy {
     }
 
     public void initialize(ProxyConfig proxyConfig) {
-        proxyConfigurator = new ProxyConfiguratorImpl();
+        proxyConfigurator = new ProxyConfiguratorImpl(proxyConfig);
         // Configure the bootstrap.
         bossGroup = new NioEventLoopGroup(1);
         workerGroup = new NioEventLoopGroup();

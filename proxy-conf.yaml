@@ -1,13 +1,13 @@
 proxies:
   - name: "To WSO2 IS"
-    enable: false
+    enable: true
     type: TCP
     in:
-      port: 9643
+      port: 10080
       host: localhost
     out:
-      port: 9543
-      host: localhost
+      port: 80
+      host: www.google.lk
     delay:
       match: all
       min: 10

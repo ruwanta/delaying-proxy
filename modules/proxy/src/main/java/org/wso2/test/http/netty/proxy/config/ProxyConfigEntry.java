@@ -18,7 +18,11 @@
 
 package org.wso2.test.http.netty.proxy.config;
 
-public class ProxyConfigEntry {
+import java.util.Observable;
+
+public class ProxyConfigEntry extends Observable {
+    private int id;
+    private String name;
     private int inboundPort;
     private String outboundHost;
     private int outboundPort;
@@ -26,6 +30,22 @@ public class ProxyConfigEntry {
     private long maxDelay = 100;
     private long averageDelay = 50;
     private ProxyTypes proxyType = ProxyTypes.TCP;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getInboundPort() {
         return inboundPort;

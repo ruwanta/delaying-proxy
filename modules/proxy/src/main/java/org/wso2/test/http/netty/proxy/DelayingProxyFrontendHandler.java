@@ -23,11 +23,13 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import org.wso2.test.http.netty.proxy.config.ProxyConfigEntry;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class DelayingProxyFrontendHandler extends ChannelInboundHandlerAdapter {
+public class DelayingProxyFrontendHandler extends ChannelInboundHandlerAdapter implements Observer {
 
     private ScheduledExecutorService scheduledExecutorService;
     private final String remoteHost;
@@ -38,18 +40,19 @@ public class DelayingProxyFrontendHandler extends ChannelInboundHandlerAdapter {
     private long sdDelay; //Standard deviation of delay
 
     private volatile Channel outboundChannel;
+
+    private ProxyConfigEntry proxyConfigEntry;
     private Random random = new Random();
 
     public DelayingProxyFrontendHandler(ProxyConfigEntry proxyConfigEntry,
             ScheduledExecutorService scheduledExecutorService) {
+        this.scheduledExecutorService = scheduledExecutorService;
         this.remoteHost = proxyConfigEntry.getOutboundHost();
         this.remotePort = proxyConfigEntry.getOutboundPort();
-        this.minDelay = proxyConfigEntry.getMinDelay();
-        this.maxDelay = proxyConfigEntry.getMaxDelay();
-        this.avDelay = proxyConfigEntry.getAverageDelay();
-        this.scheduledExecutorService = scheduledExecutorService;
+        recalculateDelays(proxyConfigEntry);
 
-        sdDelay = (avDelay - minDelay) /3;
+        proxyConfigEntry.addObserver(this);
+        this.proxyConfigEntry = proxyConfigEntry;
     }
 
     @Override
@@ -106,6 +109,23 @@ public class DelayingProxyFrontendHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    private void recalculateDelays(ProxyConfigEntry proxyConfigEntry) {
+
+        this.minDelay = proxyConfigEntry.getMinDelay();
+        this.maxDelay = proxyConfigEntry.getMaxDelay();
+        this.avDelay = proxyConfigEntry.getAverageDelay();
+
+        sdDelay = (avDelay - minDelay) /3;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof ProxyConfigEntry) {
+            ProxyConfigEntry proxyConfigEntry = (ProxyConfigEntry)o;
+            recalculateDelays(proxyConfigEntry);
+        }
+    }
+
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         if (outboundChannel != null) {
@@ -117,6 +137,12 @@ public class DelayingProxyFrontendHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         closeOnFlush(ctx.channel());
+    }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        super.channelUnregistered(ctx);
+        proxyConfigEntry.deleteObserver(this);
     }
 
     /**

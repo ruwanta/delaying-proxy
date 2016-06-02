@@ -16,7 +16,54 @@ mvn clean install
 
 mvn package
 
+### How to Run
+The binaries are available at /modules/dist/target/appassembler.
+You can copy entire content and distribute as you wish.
+
+Go to "appassembler" directory 
+
+Linux/Unix/OS-X
+```
+bin\proxy proxy-conf.yaml
+```
+
+Windows
+```
+bin\proxy.bat proxy-conf.yaml
+```
 
 
-The binaries are available at
-/modules/dist/target/appassembler
+### YAML Confuguration
+Configurations are done with "proxy-conf.yaml". 
+
+```yaml
+proxies:
+  - name: "To WSO2 IS"    # Unique human readable name
+    enable: true          # enable or disable this proxy
+    type: TCP             # Proxy type, TCP or SQL
+    in:                   # Inbound configuration
+      port: 10080         # Inbound listening port
+      host: localhost     # Inbound listening IP (currently all IPs)
+    out:                  # Outbound configuration
+      port: 80            # Remote port to be proxied
+      host: www.google.lk # Remote host to be proxied
+    delay:                # Delay configurations (only one delay set can be configured currently)
+      match: all          # - Unused
+      min: 10             # Minimum Delay in milliseconds
+      avg: 30             # Average delay in milliseconds 
+      max: 130            # Maximum delay in milliseconds
+```   
+
+The delay is randomized on average delay. However it will be in between min and max value.
+
+### REST API
+
+Set min, max or average delay
+```
+http://<host>:<port>/configure/proxy/{index}/delay/{match}/<min|max|average>/{value}
+```
+e.g. 
+```
+http://<host>:<port>/configure/proxy/0/delay/match/min/3
+```
+Sets the minimum delay 3mili seconds for the proxy at index 0. ("match" term currently unused and can put any string.) 

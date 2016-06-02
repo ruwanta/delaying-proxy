@@ -45,14 +45,16 @@ public class ProxyConfig {
             org.wso2.test.http.netty.proxy.config.yaml.Reader reader = new Reader();
             Config config = reader.read(fis);
             if (config != null && config.getProxies() != null) {
+                int id=0;
                 for (Proxy proxy : config.getProxies()) {
                     if (proxy.isEnable()) {
 
-                        ProxyConfigEntry proxyConfig = readConfigEntry(proxy);
+                        ProxyConfigEntry proxyConfig = readConfigEntry(proxy, id);
                         if (proxyConfig != null) {
                             proxyConfigs.add(proxyConfig);
                         }
                     }
+                    id ++;
                 }
             }
         } catch (IOException ioe) {
@@ -69,9 +71,11 @@ public class ProxyConfig {
         }
     }
 
-    private ProxyConfigEntry readConfigEntry(Proxy p) {
+    private ProxyConfigEntry readConfigEntry(Proxy p, int id) {
 
         ProxyConfigEntry proxyConfig = new ProxyConfigEntry();
+        proxyConfig.setId(id);
+        proxyConfig.setName(p.getName());
         proxyConfig.setInboundPort(p.getIn().getPort());
         proxyConfig.setOutboundHost(p.getOut().getHost());
         proxyConfig.setOutboundPort(p.getOut().getPort());
