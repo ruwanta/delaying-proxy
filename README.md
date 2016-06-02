@@ -16,8 +16,7 @@ mvn clean install
 
 mvn package
 
-mvn appassembler:assemble
 
 
-The binaries are avilable at
-/modules/dist/target
+The binaries are available at
+/modules/dist/target/appassembler
