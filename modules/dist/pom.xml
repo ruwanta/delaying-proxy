@@ -57,6 +57,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
                 <configuration>
+                    <assembleDirectory>target/delaying-proxy</assembleDirectory>
                     <programs>
                         <program>
                             <mainClass>org.wso2.test.ruwana.proxy.delay.app.Application</mainClass>
