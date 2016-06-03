@@ -22,10 +22,10 @@ mvn package
 ```
 
 ### How to Run
-The binaries are available at /modules/dist/target/appassembler.
+The binaries are available at /modules/dist/target/delaying-proxy.
 You can copy entire content and distribute as you wish.
 
-Go to "appassembler" directory 
+Go to "delaying-proxy" directory 
 
 Linux/Unix/OS-X
 ```
