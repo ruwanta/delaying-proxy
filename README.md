@@ -43,20 +43,26 @@ Configurations are done with "proxy-conf.yaml".
 
 ```yaml
 proxies:
-  - name: "To WSO2 IS"    # Unique human readable name
-    enable: true          # enable or disable this proxy
-    type: TCP             # Proxy type, TCP or SQL
-    in:                   # Inbound configuration
-      port: 10080         # Inbound listening port
-      host: localhost     # Inbound listening IP (currently all IPs)
-    out:                  # Outbound configuration
-      port: 80            # Remote port to be proxied
-      host: www.google.lk # Remote host to be proxied
-    delay:                # Delay configurations (only one delay set can be configured currently)
-      match: all          # - Unused
-      min: 10             # Minimum Delay in milliseconds
-      avg: 30             # Average delay in milliseconds 
-      max: 130            # Maximum delay in milliseconds
+proxiesConfig:
+  name: "My Sample Proxy"
+  restApi:
+      listenPort: 8090        # Port which REST API (MSF4J) listens(optional, default 8080)
+      listenAddresses: "0.0.0.0"    # machine IP Addresses or Host names to listen (not supported)
+  proxies:
+      - name: "To WSO2 IS"    # Unique human readable name
+        enable: true          # enable or disable this proxy
+        type: TCP             # Proxy type, TCP or SQL
+        in:                   # Inbound configuration
+          port: 10080         # Inbound listening port
+          host: localhost     # Inbound listening IP (currently all IPs)
+        out:                  # Outbound configuration
+          port: 80            # Remote port to be proxied
+          host: www.google.lk # Remote host to be proxied
+        delay:                # Delay configurations (only one delay set can be configured currently)
+          match: all          # - Unused
+          min: 10             # Minimum Delay in milliseconds
+          avg: 30             # Average delay in milliseconds
+          max: 130            # Maximum delay in milliseconds
 ```   
 
 The delay is randomized on average delay. However it will be in between min and max value.
