@@ -32,7 +32,7 @@
         <module>modules/rest-api</module>
         <module>modules/proxy</module>
         <module>modules/dist</module>
-        <module>modules/layer3</module>
+        <!--<module>modules/layer3</module>-->
     </modules>
 
     <repositories>
