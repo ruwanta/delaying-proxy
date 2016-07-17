@@ -16,12 +16,29 @@
  * under the License.
  */
 
-package org.wso2.test.ruwana.proxy.delay.api;
+package org.wso2.test.http.netty.proxy.config.yaml;
 
-public interface Configurator {
+/**
+ * HosHolds the configuration for Rest API
+ */
+public class RestApiConfig {
 
-    void setMinDelay(String id, String match, long value);
-    long getMinDelay(String id, String match) throws ResourceNotFoundException;
-    void setMaxDelay(String id, String match, long value);
-    void setAverageDelay(String id, String match, long value);
+    private int listenPort;
+    private String listenAddresses;
+
+    public int getListenPort() {
+        return listenPort;
+    }
+
+    public void setListenPort(int listenPort) {
+        this.listenPort = listenPort;
+    }
+
+    public String getListenAddresses() {
+        return listenAddresses;
+    }
+
+    public void setListenAddresses(String listenAddresses) {
+        this.listenAddresses = listenAddresses;
+    }
 }

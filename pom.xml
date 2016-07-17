@@ -32,9 +32,23 @@
         <module>modules/rest-api</module>
         <module>modules/proxy</module>
         <module>modules/dist</module>
+        <module>modules/layer3</module>
     </modules>
 
     <repositories>
+
+        <!-- WSO2 Staging MSF4j -->
+        <repository>
+            <id>wso2.releases.msf4j</id>
+            <name>WSO2 Releases Repository(MSF4J)</name>
+            <url>https://maven.wso2.org/nexus/content/repositories/orgwso2msf4j-1004</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+
         <!-- WSO2 released artifact repository -->
         <repository>
             <id>wso2.releases</id>
@@ -76,7 +90,7 @@
     <properties>
         <netty.version>4.0.33.Final</netty.version>
         <yamlbeans.version>1.08</yamlbeans.version>
-        <msf4j.vershon>1.1.0-SNAPSHOT</msf4j.vershon>
+        <msf4j.vershon>2.0.0</msf4j.vershon>
     </properties>
 
 

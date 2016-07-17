@@ -16,31 +16,30 @@
  * under the License.
  */
 
-package org.wso2.test.http.netty.proxy.config.yaml;
+package org.wso2.test.ruwana.proxy.delay.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+/**
+ * Thrown whe REST API accesses wrong resources
+ */
+public class ResourceNotFoundException extends Exception {
 
-import java.util.List;
-
-public class Config {
-
-    private String name;
-    private List<Proxy> proxies;
-
-    public String getName() {
-        return name;
+    public ResourceNotFoundException() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public ResourceNotFoundException(String message) {
+        super(message);
     }
 
-    public List<Proxy> getProxies() {
-        return proxies;
+    public ResourceNotFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public void setProxies(List<Proxy> proxies) {
-        this.proxies = proxies;
+    public ResourceNotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    public ResourceNotFoundException(String message, Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

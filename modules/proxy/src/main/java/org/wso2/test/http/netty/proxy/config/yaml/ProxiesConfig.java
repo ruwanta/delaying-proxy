@@ -16,18 +16,39 @@
  * under the License.
  */
 
-package org.wso2.test.ruwana.proxy.delay.rest;
+package org.wso2.test.http.netty.proxy.config.yaml;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import java.util.List;
 
-@Path("/hello")
-public class HelloService {
+/**
+ * Collection of Proxies
+ */
+public class ProxiesConfig {
+    private String name;
+    private RestApiConfig restApi;
+    private List<Proxy> proxies;
 
-    @GET
-    @Path("/{name}")
-    public String hello(@PathParam("name") String name) {
-        return "Hello " + name;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RestApiConfig getRestApi() {
+        return restApi;
+    }
+
+    public void setRestApi(RestApiConfig restApi) {
+        this.restApi = restApi;
+    }
+
+    public List<Proxy> getProxies() {
+        return proxies;
+    }
+
+    public void setProxies(List<Proxy> proxies) {
+        this.proxies = proxies;
     }
 }

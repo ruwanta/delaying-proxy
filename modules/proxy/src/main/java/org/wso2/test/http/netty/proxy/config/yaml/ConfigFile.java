@@ -16,14 +16,16 @@
  * under the License.
  */
 
-package org.wso2.test.ruwana.proxy.delay.rest;
+package org.wso2.test.http.netty.proxy.config.yaml;
 
-import org.wso2.msf4j.MicroservicesRunner;
+public class ConfigFile {
+    private ProxiesConfig proxiesConfig;
 
-public class Application {
-    public static void main(String[] args) {
-        new MicroservicesRunner()
-                .deploy(new HelloService())
-                .start();
+    public ProxiesConfig getProxiesConfig() {
+        return proxiesConfig;
+    }
+
+    public void setProxiesConfig(ProxiesConfig proxiesConfig) {
+        this.proxiesConfig = proxiesConfig;
     }
 }

@@ -30,12 +30,12 @@ public class ReaderTest extends TestCase {
 
         Reader reader = new Reader();
 
-        Config config = reader.read(inputStream);
-        System.out.println(config);
-        System.out.println(config.getProxies());
-        assertNotNull(config);
-        assertNotNull(config.getProxies());
-        assertNotNull(config.getProxies().get(0));
-        assertNotNull(config.getProxies().get(0).getType());
+        ConfigFile configFile = reader.read(inputStream);
+        System.out.println(configFile);
+        System.out.println(configFile.getProxiesConfig());
+        assertNotNull(configFile);
+        assertNotNull(configFile.getProxiesConfig());
+        assertNotNull(configFile.getProxiesConfig().getProxies().get(0));
+        assertNotNull(configFile.getProxiesConfig().getProxies().get(0).getType());
     }
 }

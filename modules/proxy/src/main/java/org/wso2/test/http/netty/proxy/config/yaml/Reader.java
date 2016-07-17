@@ -18,29 +18,27 @@
 
 package org.wso2.test.http.netty.proxy.config.yaml;
 
-import com.esotericsoftware.yamlbeans.YamlException;
-import com.esotericsoftware.yamlbeans.YamlReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Reader {
 
-
-    public Config read(InputStream inputStream) {
+    public ConfigFile read(InputStream inputStream) {
         ObjectMapper mapper = mapperForYAML();
-        Config item = null;
+        ConfigFile item = null;
         try {
-            item = mapper.readValue(new InputStreamReader(inputStream), Config.class);
+            item = mapper.readValue(new InputStreamReader(inputStream), ConfigFile.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return item;
     }
 
-    protected ObjectMapper mapperForYAML()
-    {
+    protected ObjectMapper mapperForYAML() {
         return new ObjectMapper(new YAMLFactory());
     }
 

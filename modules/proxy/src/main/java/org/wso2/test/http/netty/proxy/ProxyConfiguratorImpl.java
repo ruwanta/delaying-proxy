@@ -21,6 +21,7 @@ package org.wso2.test.http.netty.proxy;
 import org.wso2.test.http.netty.proxy.config.ProxyConfig;
 import org.wso2.test.http.netty.proxy.config.ProxyConfigEntry;
 import org.wso2.test.ruwana.proxy.delay.api.Configurator;
+import org.wso2.test.ruwana.proxy.delay.api.ResourceNotFoundException;
 
 public class ProxyConfiguratorImpl implements Configurator {
 
@@ -31,7 +32,7 @@ public class ProxyConfiguratorImpl implements Configurator {
     }
 
     @Override
-    public void setMinDelay(String id, String match, int value) {
+    public void setMinDelay(String id, String match, long value) {
         System.out.println("Setting min delay " + value);
         ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
         if (proxyConfigEntry != null) {
@@ -41,7 +42,16 @@ public class ProxyConfiguratorImpl implements Configurator {
     }
 
     @Override
-    public void setMaxDelay(String id, String match, int value) {
+    public long getMinDelay(String id, String match) throws ResourceNotFoundException {
+        ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
+        if (proxyConfigEntry == null) {
+            throw new ResourceNotFoundException("The Proxy with Index:["+id+"] and Match Pattern:["+ match +"] not found.");
+        }
+        return proxyConfigEntry.getMinDelay();
+    }
+
+    @Override
+    public void setMaxDelay(String id, String match, long value) {
         ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
         if (proxyConfigEntry != null) {
             proxyConfigEntry.setMaxDelay(value);
@@ -50,7 +60,7 @@ public class ProxyConfiguratorImpl implements Configurator {
     }
 
     @Override
-    public void setAverageDelay(String id, String match, int value) {
+    public void setAverageDelay(String id, String match, long value) {
         ProxyConfigEntry proxyConfigEntry = findProxyConfigEntry(id);
         if (proxyConfigEntry != null) {
             proxyConfigEntry.setAverageDelay(value);
@@ -63,7 +73,7 @@ public class ProxyConfiguratorImpl implements Configurator {
             return null;
         }
         for (ProxyConfigEntry proxyConfigEntry : proxyConfig.getProxyConfigs()) {
-            if (id.equals(""+proxyConfigEntry.getId())) {
+            if (id.equals("" + proxyConfigEntry.getId())) {
                 return proxyConfigEntry;
             }
         }

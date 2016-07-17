@@ -1,30 +1,35 @@
-proxies:
-  - name: "To WSO2 IS"
-    enable: true
-    type: TCP
-    in:
-      port: 10080
-      host: localhost
-    out:
-      port: 80
-      host: www.google.lk
-    delay:
-      match: all
-      min: 10
-      avg: 30
-      max: 130
-  - name: "To MySQL server"
-    enable: true
-    type: SQL
-    in:
-      port: 13306
-      host: localhost
-    out:
-      port: 9543
-      host: localhost
-    delay:
-      match: regex
-      regex: "SELET"
-      min: 1
-      avg: 3
-      max: 13
+proxiesConfig:
+  name: "foo"
+  restApi:
+      listenPort: 8090
+      listenAddresses: "0.0.0.0"
+  proxies:
+    - name: "To WSO2 IS"
+      enable: true
+      type: TCP
+      in:
+        port: 10080
+        host: localhost
+      out:
+        port: 80
+        host: www.google.lk
+      delay:
+        match: all
+        min: 10
+        avg: 30
+        max: 130
+    - name: "To MySQL server"
+      enable: true
+      type: SQL
+      in:
+        port: 13306
+        host: localhost
+      out:
+        port: 3306
+        host: localhost
+      delay:
+        match: regex
+        regex: "SELET"
+        min: 6000
+        avg: 8000
+        max: 9000

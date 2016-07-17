@@ -18,12 +18,13 @@
 
 package org.wso2.test.ruwana.proxy.delay.rest;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.wso2.test.ruwana.proxy.delay.api.Configurator;
+import org.wso2.test.ruwana.proxy.delay.api.ResourceNotFoundException;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 
 @Path("/configure/proxy")
 public class ProxyConfigureService {
@@ -45,6 +46,20 @@ public class ProxyConfigureService {
     public void setMinDelay(@PathParam("id") String id, @PathParam("match") String match,
             @PathParam("value") int value) {
          configurator.setMinDelay(id, match, value);
+    }
+
+    @GET
+    @Path("/{id}/delay/{match}/min")
+    @Produces({"application/json", "text/xml"})
+    @ApiOperation(
+            value = "Returns minimum delay for the proxy at index, matching the pattern",
+            notes = "Returns HTTP 404 if the proxy at index or matching pattern is not found")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Valid proxy found"),
+            @ApiResponse(code = 404, message = "Proxy not found")})
+    public long getMinDelay(@PathParam("id") String id, @PathParam("match") String match)
+            throws ResourceNotFoundException {
+        return configurator.getMinDelay(id, match);
     }
 
     @PUT

@@ -18,9 +18,10 @@
 
 package org.wso2.test.http.netty.proxy.config;
 
-import org.wso2.test.http.netty.proxy.config.yaml.Config;
+import org.wso2.test.http.netty.proxy.config.yaml.ConfigFile;
 import org.wso2.test.http.netty.proxy.config.yaml.Proxy;
 import org.wso2.test.http.netty.proxy.config.yaml.Reader;
+import org.wso2.test.http.netty.proxy.config.yaml.RestApiConfig;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,10 +32,15 @@ import java.util.List;
 
 public class ProxyConfig {
 
+    private RestApiConfig restApiConfig;
     private List<ProxyConfigEntry> proxyConfigs = new ArrayList<ProxyConfigEntry>();
 
     public List<ProxyConfigEntry> getProxyConfigs() {
         return proxyConfigs;
+    }
+
+    public RestApiConfig getRestApiConfig() {
+        return restApiConfig;
     }
 
     public void load(File file) {
@@ -43,10 +49,11 @@ public class ProxyConfig {
         try {
             fis = new FileInputStream(file);
             org.wso2.test.http.netty.proxy.config.yaml.Reader reader = new Reader();
-            Config config = reader.read(fis);
-            if (config != null && config.getProxies() != null) {
+            ConfigFile configFile = reader.read(fis);
+            restApiConfig = configFile.getProxiesConfig().getRestApi();
+            if (configFile != null && configFile.getProxiesConfig() != null) {
                 int id=0;
-                for (Proxy proxy : config.getProxies()) {
+                for (Proxy proxy : configFile.getProxiesConfig().getProxies()) {
                     if (proxy.isEnable()) {
 
                         ProxyConfigEntry proxyConfig = readConfigEntry(proxy, id);
