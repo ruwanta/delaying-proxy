@@ -35,6 +35,71 @@
         <!--<module>modules/layer3</module>-->
     </modules>
 
+    <properties>
+        <netty.version>4.0.33.Final</netty.version>
+        <yamlbeans.version>1.08</yamlbeans.version>
+        <msf4j.vershon>2.0.0</msf4j.vershon>
+        <junit.version>3.8.2</junit.version>
+        <fasterxml.jackson.version>2.5.4</fasterxml.jackson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware.yamlbeans</groupId>
+                <artifactId>yamlbeans</artifactId>
+                <version>${yamlbeans.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${fasterxml.jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.msf4j</groupId>
+                <artifactId>msf4j-core</artifactId>
+                <version>${msf4j.vershon}</version>
+                <exclusions>
+                    <!--<exclusion>-->
+                    <!--<groupId>com.nimbusds</groupId>-->
+                    <!--<artifactId>nimbus-jose-jwt</artifactId>-->
+                    <!--</exclusion>-->
+                    <exclusion>
+                        <groupId>org.wso2.eclipse.osgi</groupId>
+                        <artifactId>org.eclipse.osgi</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.wso2.eclipse.osgi</groupId>
+                        <artifactId>org.eclipse.osgi.services</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.wso2.carbon</groupId>
+                        <artifactId>org.wso2.carbon.launcher</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-pool</groupId>
+                        <artifactId>commons-pool</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <repositories>
 
         <!-- WSO2 Staging MSF4j -->
@@ -86,12 +151,5 @@
             </releases>
         </repository>
     </repositories>
-
-    <properties>
-        <netty.version>4.0.33.Final</netty.version>
-        <yamlbeans.version>1.08</yamlbeans.version>
-        <msf4j.vershon>2.0.0</msf4j.vershon>
-    </properties>
-
 
 </project>

@@ -26,7 +26,7 @@ import java.io.InputStream;
 public class ReaderTest extends TestCase {
 
     public void testRead() throws Exception {
-        InputStream inputStream = new FileInputStream("proxy-conf.yaml");
+        InputStream inputStream = ReaderTest.class.getResourceAsStream("/test-proxy-conf.yaml");
 
         Reader reader = new Reader();
 
