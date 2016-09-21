@@ -18,9 +18,11 @@
 
 package org.wso2.test.http.netty.proxy.config;
 
+import org.wso2.test.ruwana.proxy.delay.api.ProxyConf;
+
 import java.util.Observable;
 
-public class ProxyConfigEntry extends Observable {
+public class ProxyConfigEntry extends Observable implements ProxyConf {
     private int id;
     private String name;
     private int inboundPort;

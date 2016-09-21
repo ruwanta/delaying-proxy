@@ -21,6 +21,7 @@ package org.wso2.test.http.netty.proxy;
 import org.wso2.test.http.netty.proxy.config.ProxyConfig;
 import org.wso2.test.http.netty.proxy.config.ProxyConfigEntry;
 import org.wso2.test.ruwana.proxy.delay.api.Configurator;
+import org.wso2.test.ruwana.proxy.delay.api.ProxyConf;
 import org.wso2.test.ruwana.proxy.delay.api.ResourceNotFoundException;
 
 public class ProxyConfiguratorImpl implements Configurator {
@@ -78,5 +79,23 @@ public class ProxyConfiguratorImpl implements Configurator {
             }
         }
         return null;
+    }
+
+    @Override
+    public int[] getProxyIdList() {
+        int[] result = new int[proxyConfig.getProxyConfigs().size()];
+        int i=0;
+        for (ProxyConfigEntry proxyConfigEntry : proxyConfig.getProxyConfigs()) {
+            result[i] = proxyConfigEntry.getId();
+            i++;
+        }
+        return result;
+    }
+
+    @Override
+    public ProxyConf getProxyById(int id) {
+        ProxyConfigEntry proxyConfigEntry = proxyConfig.getProxyConfigs().get(id);
+
+        return proxyConfigEntry;
     }
 }

@@ -23,6 +23,7 @@ import org.wso2.test.http.netty.proxy.DelayingProxy;
 import org.wso2.test.http.netty.proxy.config.ProxyConfig;
 import org.wso2.test.http.netty.proxy.config.yaml.RestApiConfig;
 import org.wso2.test.ruwana.proxy.delay.rest.ProxyConfigureService;
+import org.wso2.test.ruwana.proxy.delay.rest.ResourceServerService;
 
 import java.io.File;
 
@@ -42,6 +43,7 @@ public class Application {
         delayingProxy.initialize(proxyConfig);
 
         ProxyConfigureService proxyConfigureService = new ProxyConfigureService(delayingProxy.getProxyConfigurator());
+        ResourceServerService resourceServerService = new ResourceServerService();
 
         RestApiConfig restApiConfig = proxyConfig.getRestApiConfig();
         int port = restApiConfig.getListenPort();
@@ -49,6 +51,6 @@ public class Application {
             port = 8080;
         }
         MicroservicesRunner microservicesRunner = new MicroservicesRunner(port);
-        microservicesRunner.deploy(proxyConfigureService).start();
+        microservicesRunner.deploy(proxyConfigureService, resourceServerService).start();
     }
 }

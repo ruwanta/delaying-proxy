@@ -35,6 +35,20 @@ public class ProxyConfigureService {
         this.configurator = configurator;
     }
 
+    @GET
+    @Path("/list")
+    @Produces({"application/json"})
+    public int[] getProxyIdList() {
+        return configurator.getProxyIdList();
+    }
+
+    @GET
+    @Path("/id")
+    @Produces({"application/json"})
+    public int[] getProxyById() {
+        return configurator.getProxyIdList();
+    }
+
     @PUT
     @Path("/{id}/enabled/{isEnabled}")
     public void setEnable(@PathParam("id") String id, @PathParam("isEnabled") boolean isEnabled) {

@@ -18,22 +18,6 @@
 
 package org.wso2.test.ruwana.proxy.delay.api;
 
-public interface Configurator {
+public interface ProxyConf {
 
-    void setMinDelay(String id, String match, long value);
-    long getMinDelay(String id, String match) throws ResourceNotFoundException;
-    void setMaxDelay(String id, String match, long value);
-    void setAverageDelay(String id, String match, long value);
-
-    /**
-     * Returns the array of current proxy IDs
-     * @return
-     */
-    int[] getProxyIdList();
-
-    /**
-     * Returns the Proxy information by ID
-     * @return
-     */
-    ProxyConf getProxyById(int id);
 }
