@@ -29,7 +29,7 @@ proxiesConfig:
         host: localhost
       delay:
         match: regex
-        regex: "SELET"
+        regex: "SELECT"
         min: 6000
         avg: 8000
         max: 9000
