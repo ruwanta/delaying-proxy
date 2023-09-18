@@ -13,6 +13,17 @@ Basic useful feature list:
  * High performance, Low memory footprint, low CPU and resource usage.
  * Can run headless.
 
+## Why?
+How many times have you come across situations when there are intermittent failures in your system?
+
+E.g. 
+ * Connection resets from the database server
+ * Pool Exhuast errors
+ * Unknown retries.
+
+As a support agent, I faced situations where the system was misbehaving and the developer insisted that the application logic was correct. The next culprit is network slowness or dropped packets.  
+
+I created this tool to analyze/simulate the system behaviour from one node to another with a slow and faulty network. It helped me to provide insightful feedback to developers to improve software resiliency as well as strong advice to the customers to improve the infrastructure.
 
 
 ### how to build
